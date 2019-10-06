@@ -28,3 +28,26 @@ const point: { x: number; y: number } = {
 const logNumber: (i: number) => void = (i: number) => {
   console.log(i);
 };
+
+//when to use annotation, when function returns any or we declare variables that will be assigned a specific type later
+
+const json = '{"x":10,"y":20}';
+const coordinates: { x: number; y: number } = JSON.parse(json);
+
+let words = ["red", "blue", "green"];
+let foundWord: boolean;
+
+for (let i of words) {
+  if (i === "green") {
+    foundWord = true;
+  }
+}
+
+const numbers = [-10, -1, 12];
+let numberAboveZero: boolean | number = false;
+
+for (let i of numbers) {
+  if (i > 0) {
+    numberAboveZero = i;
+  }
+}
