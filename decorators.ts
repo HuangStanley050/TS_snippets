@@ -1,12 +1,22 @@
-const testDecorator = (target: any, key: string): void => {
-  console.log("Target ", target);
-  console.log("Key ", key);
-};
+function logError(message: string) {
+  return function(target: any, key: string, desc: PropertyDescriptor) {
+    const method = desc.value;
+    desc.value = function() {
+      try {
+        method();
+      } catch (er) {
+        console.log("oops");
+      }
+    };
+  };
+}
+
 class Boat {
   color: string = "red";
 
-  @testDecorator
+  @logError("oooasfdsadf")
   pilot(): void {
+    throw new Error("aaaaaa!");
     console.log("swish");
   }
   get formattedColor(): string {
@@ -15,3 +25,5 @@ class Boat {
     `;
   }
 }
+
+new Boat().pilot();
